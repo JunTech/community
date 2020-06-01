@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 spring:
   thymeleaf:
     cache: false
@@ -10,3 +10,13 @@ spring:
     prefix: classpath:/templates/
     servlet:
       content-type: text/html
+
+
+
+# github信息
+github:
+  client:
+    id: 70b646246b5e266e5a3d
+    secret: 5db2e54b65f63e847948e3cfd33a76d29dce9d21
+  redirect:
+    uri: http://localhost:8081/callback
