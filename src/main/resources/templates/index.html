@@ -8,11 +8,10 @@
     <!-- Bootstrap -->
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/index.css" rel="stylesheet">
-
 </head>
 <body>
     <!--头部:导航栏-->
-    <header id="shequ_head">
+    <header id="shequ_head" style="background-color:skyblue;">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -39,7 +38,7 @@
 
                     <!--头部导航链接 左边的-->
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">发现<span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">发现</a></li>
                         <li><a href="#">分享</a></li>
                         <li><a href="#">文章</a></li>
                         <li><a href="#">活动</a></li>
@@ -49,14 +48,18 @@
                     <!--头部导航链接 右边的  登录-->
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown" th:if="${session.user!=null}">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span th:text="${session.user.getName()}"></span><span class="caret"></span></a>
-                            <ul class="dropdown-menu">
+                            <img th:src="${session.user.getAvatar_url()}" alt="" class="img-responsive img-circle" th:width="40" th:height="40" style="float: left" >
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="float: left" >
+                                <span th:text="${session.user.getName()}"></span>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" >
                                 <li><a href="#">消息中心</a></li>
                                 <li><a href="#">个人资料</a></li>
                                 <li><a href="#">退出登录</a></li>
                             </ul>
                         </li>
-                        <li th:if="${session.user==null}"><a href="https://github.com/login/oauth/authorize?client_id=70b646246b5e266e5a3d&redirect_uri=http://localhost:8081/callback&scope=user&state=1">登录</a></li>
+                        <li th:if="${session.user==null}"><a href="https://github.com/login/oauth/authorize?client_id=70b646246b5e266e5a3d&redirect_uri=http://localhost:8081/callback&scope=user&state=1"><button class="btn btn-primary">登录</button></a></li>
                     </ul>
                 </div>
             </div>
