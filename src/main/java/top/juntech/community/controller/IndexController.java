@@ -9,6 +9,7 @@ import top.juntech.community.dto.AccessTokenDto;
 import top.juntech.community.dto.GithubUser;
 import top.juntech.community.provider.GithubProvider;
 
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -38,7 +39,8 @@ public class IndexController {
 
     @GetMapping(value = "/callback")
     public String callback(@RequestParam(name = "code")String code,
-                           @RequestParam(value = "state")String state){
+                           @RequestParam(value = "state")String state,
+                           HttpServletRequest request){
         AccessTokenDto accessTokenDto = new AccessTokenDto();
         accessTokenDto.setCode(code);
         accessTokenDto.setRedirect_uri(CALLBACK);
@@ -48,8 +50,14 @@ public class IndexController {
         String access_token = githubProvider.getAccessToken(accessTokenDto);
         GithubUser user = githubProvider.getUser(access_token);
         if(user!=null){
-            System.out.println(user.getName());
+//            System.out.println(user.getName());
+            request.getSession().setAttribute("user",user);
+            //登录成功，页面重定向
+            return "redirect:/";
+        }else {
+            //登录失败重新登录
+            return "redirect:/";
         }
-        return "index";
+
     }
 }

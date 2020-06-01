@@ -19,6 +19,6 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class GithubUser {
     private String name;
-    private Long id;
+    private long id;
     private String bio;
 }

@@ -1,6 +1,7 @@
 package top.juntech.community.provider;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
@@ -52,8 +53,10 @@ public class GithubProvider {
         System.out.println(request.url());
         try {
             Response response = client.newCall(request).execute();
-            String s = response.body().toString();
-            GithubUser githubUser = JSON.parseObject(s, GithubUser.class);
+            ResponseBody body = response.body();
+            String s =body.string();
+            JSONObject jsonObject = JSON.parseObject(s);
+            GithubUser githubUser = jsonObject.toJavaObject(GithubUser.class);
             System.out.println(githubUser.toString());
             return githubUser;
         } catch (IOException e) {
