@@ -1,0 +1,235 @@
+/*
+通用样式
+*/
+body{
+    /*font-size: 13px;*/
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #000;
+}
+
+/*
+@font-face {
+    font-family: lk;
+    src: url("../fonts/lk.eot") format('embedded-opentype');
+        url("../fonts/lk.svg") format('svg');
+        url("../fonts/lk.ttf") format('truetype');
+        url("../fonts/lk.woff") format('woff');
+}
+*/
+
+#lk_header .top-bar{
+    background-color: #fff;
+    height: 40px;
+    line-height: 39px;
+    border-bottom: 1px solid #e0e0e0 ;
+    /*text-align: center;*/
+}
+
+#lk_header .top-bar .top-bar-1{
+    /*background-color: #e0e0e0;*/
+}
+#lk_header .top-bar .top-bar-2{
+    /*background-color:  #e0e0e0;*/
+    border-left:1px solid #e0e0e0;
+    color: red;
+}
+#lk_header .top-bar .top-bar-3 {
+    /*background-color:  #e0e0e0;*/
+    border-left:1px solid #e0e0e0;
+}
+#lk_header .top-bar .top-bar-4 {
+    /*background-color:  #e0e0e0;*/
+    border-left:1px solid #e0e0e0;
+}
+
+#lk_header .top-bar  .container-fluid .row .top-bar-1 a{
+    position: relative;
+}
+/*
+    隐藏二维码
+*/
+#lk_header .top-bar  .container-fluid .row .top-bar-1 a img{
+    display: none;
+
+    position: absolute;
+    left: 50%;
+    margin-left: -65px;
+    margin-top: -10px;
+
+    z-index: 9999;
+}
+/*
+    显示二维码
+*/
+#lk_header .top-bar  .container-fluid .row .top-bar-1 a:hover img{
+    display: block;
+}
+
+#lk_header .navbar-lk{
+    background-color: #fff;
+}
+
+#lk_header .navbar-lk .navbar-brand{
+    height: 70px;
+    padding: 10px 15px;
+}
+
+#lk_header .navbar-lk .navbar-nav a{
+    height: 70px;
+    /*line-height: 70px;*/
+    line-height: 40px;
+}
+
+#lk_header .navbar-lk .navbar-nav li.active a,
+#lk_header .navbar-lk .navbar-nav li a:hover{
+    background-color: transparent;
+    border-bottom: 4px solid blue;
+}
+
+.navbar{
+    margin-bottom: 0px;
+}
+
+#lk_about{
+    padding: 20px 0;
+}
+
+#lk_about .title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    padding-bottom: 15px;
+}
+
+#lk_about .container .row p{
+    line-height: 26px;
+    font-size: 15px;
+}
+
+#lk_product {
+    background-color: #f0f0f0;
+    padding: 30px 0;
+}
+
+#lk_product .nav{
+    font-size: 18px;
+}
+
+#lk_product .nav a{
+    color: #999;
+}
+
+#lk_product .nav li.active a{
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid blue;
+    color: #000;
+}
+
+#lk_product .container .row .tab-content .media{
+    padding-top: 20px;
+}
+
+#lk_product .container .row .pd-left{
+    padding-top: 50px;
+}
+
+#lk_product .container .row .breadcrumb li a{
+    font-size: 26px;
+    text-decoration: none;
+}
+
+#lk_product .container .row .breadcrumb li a:hover{
+    border-bottom: 4px solid blue;
+}
+
+#lk_product .container .row #pd_4 button{
+    margin: 0 30px;
+}
+
+#lk_hot .lesson{
+    padding: 30px;
+}
+
+#lk_hot .lesson .media-left{
+    width: 20%;
+}
+
+#lk_hot .lesson .media-body{
+    width: 60%;
+    vertical-align: middle;
+    margin-top: 10px;
+}
+
+#lk_hot .lesson .media-right{
+    width: 20%;
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+#lk_hot .container .row p{
+  margin: 15px 0px -1px;
+}
+
+#lk_link .logos{
+    text-align: center;
+}
+
+#lk_link .logos a:hover{
+    box-shadow: 10px 10px 15px #888888;
+}
+
+#lk_link .container .row ul li{
+    list-style: none;
+}
+
+#lk_link .container .row ul li{
+    display: inline-block;
+    padding: 20px 30px;
+}
+
+#lk_footer .container-fluid .footer{
+    background-color: #4a4a4a;
+    /*height: 140px;*/
+    /*line-height: 140px;*/
+}
+
+#lk_footer .container-fluid .row .ft_one{
+    border-right: 2px solid white;
+
+}
+
+#lk_footer .container-fluid .row .ft_two{
+    border-right: 1px solid white;
+}
+
+.lesson:hover{
+    cursor: pointer;
+    transform:translateY(-10px);
+    box-shadow: 0px 0px 10px 5px #aaa;
+    border: 1px solid gray;
+}
+
+
+.shadow:hover{
+    cursor: pointer;
+    transform: translateY(-5px);
+}
+
+#lk_footer .footer .ft_one img{
+    height: 140px;
+}
+
+#lk_footer .ft_li li{
+    display: flex;
+    list-style: none;
+    height: 10px;
+    /*line-height: 10px;*/
+    padding: 20px 5px;
+    float: left;
+    margin: 10px 10px ;
+}
+#lk_footer .ft_li li a{
+    color: white;
+}
