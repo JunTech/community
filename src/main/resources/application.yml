@@ -1,6 +1,12 @@
 server:
   port: 8081
 spring:
+  datasource:
+    url: jdbc:h2:~/community
+    username: root
+    password: juntech
+    driver-class-name: org.h2.Driver
+
   thymeleaf:
     cache: false
     check-template: true
@@ -12,7 +18,6 @@ spring:
       content-type: text/html
 
 
-
 # github信息
 github:
   client:
@@ -20,3 +25,15 @@ github:
     secret: 5db2e54b65f63e847948e3cfd33a76d29dce9d21
   redirect:
     uri: http://localhost:8081/callback
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    cache-enabled: true
+#  mapper-locations: classpath:/mybatis/mapper/*Mapper.xml
+#  config-location: classpath:/mybatis/mybatis-config.xml
+logging:
+  level:
+    top.juntech.community.mapper: debug
+
+

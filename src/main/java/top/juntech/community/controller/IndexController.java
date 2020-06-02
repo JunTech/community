@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import top.juntech.community.dto.AccessTokenDto;
 import top.juntech.community.dto.GithubUser;
+import top.juntech.community.mapper.UserMapper;
+import top.juntech.community.model.User;
 import top.juntech.community.provider.GithubProvider;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 
 /**
@@ -24,6 +27,9 @@ public class IndexController {
 
     @Autowired
     private GithubProvider githubProvider;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Value("${github.client.id}")
     public String CLIENT_ID;
@@ -48,10 +54,17 @@ public class IndexController {
         accessTokenDto.setClient_id(CLIENT_ID);
         accessTokenDto.setClient_secret(CLIENT_SECRET);
         String access_token = githubProvider.getAccessToken(accessTokenDto);
-        GithubUser user = githubProvider.getUser(access_token);
-        if(user!=null){
+        GithubUser githubUser = githubProvider.getUser(access_token);
+        if(githubUser!=null){
 //            System.out.println(user.getName());
-            request.getSession().setAttribute("user",user);
+            request.getSession().setAttribute("user",githubUser);
+            User user = new User();
+            user.setToken(UUID.randomUUID().toString());
+            user.setName(githubUser.getName());
+            user.setAccountId(String.valueOf(githubUser.getId()));
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
+            userMapper.insert(user);
             //登录成功，页面重定向
             return "redirect:/";
         }else {
