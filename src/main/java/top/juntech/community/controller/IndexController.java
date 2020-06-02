@@ -11,7 +11,9 @@ import top.juntech.community.mapper.UserMapper;
 import top.juntech.community.model.User;
 import top.juntech.community.provider.GithubProvider;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 
@@ -19,7 +21,7 @@ import java.util.UUID;
  * @author juntech
  * @version ${version}
  * @date 2020/6/1 14:50
- * @ClassName 类名
+ * @ClassName IndexController
  * @Descripe 论坛首页控制器
  */
 @Controller
@@ -39,14 +41,34 @@ public class IndexController {
     public  String CALLBACK;
 
     @GetMapping(value = "/")
-    public String index(){
+    public String index(HttpServletRequest request){
+        /*
+        * 获取token
+        * */
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if(cookie.getName().equals("token")){
+                String token = cookie.getValue();
+                /*
+                * 根据token获取用户信息
+                * */
+                if(token!=null){
+                    User user = userMapper.findByToken(token);
+                    if(user!=null){
+                        request.getSession().setAttribute("user",user);
+                    }
+                }
+                break;
+            }
+        }
         return "index";
     }
 
     @GetMapping(value = "/callback")
     public String callback(@RequestParam(name = "code")String code,
                            @RequestParam(value = "state")String state,
-                           HttpServletRequest request){
+                           /*HttpServletRequest request,*/
+                           HttpServletResponse response){
         AccessTokenDto accessTokenDto = new AccessTokenDto();
         accessTokenDto.setCode(code);
         accessTokenDto.setRedirect_uri(CALLBACK);
@@ -56,16 +78,18 @@ public class IndexController {
         String access_token = githubProvider.getAccessToken(accessTokenDto);
         GithubUser githubUser = githubProvider.getUser(access_token);
         if(githubUser!=null){
-//            System.out.println(user.getName());
-            request.getSession().setAttribute("user",githubUser);
             User user = new User();
-            user.setToken(UUID.randomUUID().toString());
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setBio(githubUser.getBio());
             userMapper.insert(user);
-            //登录成功，页面重定向
+            //登录成功，写入session和cookie,页面重定向
+//            request.getSession().setAttribute("user",githubUser);
+            response.addCookie(new Cookie("token",token));
             return "redirect:/";
         }else {
             //登录失败重新登录
